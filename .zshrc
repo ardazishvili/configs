@@ -70,13 +70,16 @@ DEFAULT_USER=$USER
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-	git
-	vi-mode
-	zsh-autosuggestions
-	zsh-syntax-highlighting
+git
+vi-mode
+zsh-autosuggestions
+zsh-syntax-highlighting
+rust
 )
 
 source $ZSH/oh-my-zsh.sh
+source $HOME/.cargo/env
+export PATH=/home/roman/.local/bin:$PATH
 
 # User configuration
 
