@@ -37,7 +37,7 @@ myConfig = def {
       terminal = "konsole"
       , layoutHook = baseLayout
       , manageHook = manageDocks
-      , startupHook = myStartupHook
+      , startupHook = spawn "compton --config ~/.xmonad/compton.conf" <+> spawn "setxkbmap -layout us,ru -option 'grp:lctrl_lshift_toggle'" 
     } `additionalKeys` myKeys
 
 baseLayout = noBorders $ avoidStruts $ tiled ||| Mirror tiled ||| Full 

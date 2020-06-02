@@ -8,8 +8,10 @@ Config { font = "-*-Fixed-Bold-R-Normal-*-13-*-*-*-*-*-*-*"
                 , Run Swap [] 10
                 , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
                 , Run StdinReader
+                , Run Kbd [("us", "<fc=#0ee9a0>en</fc>")
+                         , ("ru", "<fc=#0ee9a0>ru</fc>")]  
                ]
   , sepChar =  "%"
   , alignSep = "}{"
-  , template = "%StdinReader% | %cpu% | %memory% * %swap% }{<fc=#ee9a00>%date%</fc> | %uname%"
+  , template = "%StdinReader% | %cpu% | %memory% * %swap%}{%kbd% | <fc=#ee9a00>%date%</fc> | %uname%"
 }
