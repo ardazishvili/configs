@@ -1,0 +1,3 @@
+xrandr --output eDP1 --mode 1920x1080 --output DP1 --mode 3440x1440 --above eDP1
+feh --bg-scale /home/roman/Downloads/Sun-and-Sky-Beautiful-View.jpg
+wpa_supplicant -B -i wlo1 -D wext -c ~/.wpa_supplicant.conf
