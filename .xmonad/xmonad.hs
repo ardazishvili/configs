@@ -40,7 +40,7 @@ myConfig = def {
       , startupHook = spawn "compton --config ~/.xmonad/compton.conf" <+> spawn "setxkbmap -layout us,ru -option 'grp:lctrl_lshift_toggle'" 
     } `additionalKeys` myKeys
 
-baseLayout = noBorders $ avoidStruts $ tiled ||| Mirror tiled ||| Full 
+baseLayout = noBorders $ avoidStruts $ Full ||| tiled 
   where
-    tiled =  spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True $ Tall 1 (3/100) (1/2) ||| Full
+    tiled =  spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True $ Tall 1 (3/100) (1/2) 
 
