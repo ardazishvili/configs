@@ -2,8 +2,8 @@ execute pathogen#infect()
 syntax on
 filetype plugin indent on    " required
 
-" set cindent
-" set cino=g0,>2,h2 " g0-public, >-'normal', h2-class methods
+set cindent
+set cino=g0,>2,h2 " g0-public, >-'normal', h2-class methods
 :set tabstop=2
 :set shiftwidth=2
 :set expandtab
@@ -23,36 +23,31 @@ set background=dark
 colors peaksea
 
 "" NERDTree settings
-:nnoremap <C-n> :NERDTreeToggle<CR>
+nnoremap <Leader>n :NERDTreeToggle<CR>
 let g:NERDTreeWinPos = "left"
 autocmd VimEnter * NERDTree
 
-"" syntactic settings
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 0
-" let g:syntastic_check_on_wq = 1
-
 "" gitgutter settings
-if exists('&signcolumn')  " Vim 7.4.2201
-  set signcolumn=yes
-else
-  let g:gitgutter_sign_column_always = 1
-endif
 highlight GitGutterAdd    ctermfg=46
 highlight GitGutterChange ctermfg=226
 highlight GitGutterDelete ctermfg=9
 highlight GitGutterAddLine     ctermfg=46
 highlight GitGutterChangeLine  ctermfg=226
 highlight GitGutterDeleteLine  ctermfg=9
-set updatetime=100
-" nnoremap ,z :GitGutterPreviewHunk<cr>
-nnoremap ,z :GitGutterStageHunk<cr>
+highlight clear SignColumn
+" set updatetime=100
+nnoremap ,p :GitGutterPreviewHunk<cr>
 nnoremap ,q :GitGutterUndoHunk<cr>
+nnoremap ,z :GitGutterStageHunk<cr>
+let g:gitgutter_use_location_list = 1
+
+"" vim-fugitive settings
+nmap gs :G<CR>
+nmap ff :Gdiff<CR>
+nmap ga :diffget //2<CR>
+nmap gl :diffget //3<CR>
+set diffopt+=vertical
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 ""ultisnips settings
 let g:UltiSnipsExpandTrigger="<c-j>"
@@ -62,10 +57,14 @@ let g:UltiSnipsSnippetsDir="~/.vim/my-snippets"
 let g:UltiSnipsSnippetDirectories = ['my-snippets']
 
 "" youcompleteme settings
-let g:ycm_use_clangd=0
 set completeopt-=preview
 nnoremap <c-\> :YcmCompleter GoToDeclaration<CR>
 nnoremap <c-]> :YcmCompleter GoToDefinition<CR>
+" Let clangd fully control code completion
+let g:ycm_clangd_uses_ycmd_caching = 0
+" Use installed clangd, not YCM-bundled clangd which doesn't get updates.
+let g:ycm_use_clangd = 1
+let g:ycm_clangd_binary_path = exepath("clangd")
 
 "" vim-clang-format settings
 let g:clang_format#auto_format = 1
@@ -75,31 +74,39 @@ let g:clang_format#detect_style_file = 1
 set exrc
 set secure
 set hlsearch
+set encoding=UTF-8
+let mapleader=","
+set mouse=a
 
 ""ALE settings
-let g:ale_virtualenv_dir_names = []
-" let g:ale_linters = { 'python': ['mypy'] }
-let g:ale_linters = { 'python': ['pylint', 'mypy'] }
 let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_enter = 1
 let g:ale_lint_on_save = 1
 
 ""vim-autoformat settings
-au BufWrite * :Autoformat
+" au BufWrite * :Autoformat
 let g:formatdef_my_custom_haskell = '"brittany --write-mode=inplace"'
 let g:formatters_haskell = ['my_custom_haskell']
 
-nnoremap tt :vertical terminal<cr>
-" nnoremap ,. :! cd cbuild && make && ./colony<cr>
-" nnoremap ,. :! cd cbuild && make && ./cpp_option<cr>
-nnoremap ,. :! ghc baby.hs -o test && ./test <cr>
-" nnoremap ,. :! clear && cargo run<cr>
-" nnoremap .. :! cargo build<cr>
-" nnoremap ., :! cd cbuild && make && ./unit_tests<cr>
-" nnoremap // :! cd cbuild && make clean<CR>
-nnoremap ,, :wa<CR>
-" nnoremap pp :! python3 main.py<cr>
+""cpp-enhanced-highlight settings
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
+let g:cpp_posix_standard = 1
+let g:cpp_experimental_simple_template_highlight = 1
+let g:cpp_experimental_template_highlight = 1
+let g:cpp_concepts_highlight = 1
 
+""Vimspector settings
+let g:vimspector_enable_mappings = 'HUMAN'
+packadd! vimspector
+
+nnoremap tt :vertical terminal<cr>
+" nnoremap ,. :! cd cbuild && make && ./editor<cr>
+" nnoremap ,. :! g++ test.cpp -g -o test && ./test <cr>
+" nnoremap ,. :! cargo run <cr>
+nnoremap ,. :! python3 % <cr>
+nnoremap <Leader>, :wa<CR>
 inoremap " ""<left>
 inoremap ' ''<left>
 inoremap ( ()<left>
