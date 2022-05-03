@@ -101,6 +101,10 @@ let g:cpp_concepts_highlight = 1
 let g:vimspector_enable_mappings = 'HUMAN'
 packadd! vimspector
 
+"Mark plugin settings
+set viminfo^=!
+highlight MarkWord1 ctermbg=Magenta ctermfg=Black guibg=#FF00FF guifg=Black
+
 nnoremap tt :vertical terminal<cr>
 " nnoremap ,. :! cd cbuild && make && ./editor<cr>
 " nnoremap ,. :! g++ test.cpp -g -o test && ./test <cr>
