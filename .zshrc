@@ -78,7 +78,7 @@ rust
 )
 
 source $ZSH/oh-my-zsh.sh
-source $HOME/.cargo/env
+# source $HOME/.cargo/env
 export PATH=/home/roman/.local/bin:$PATH
 
 # User configuration
