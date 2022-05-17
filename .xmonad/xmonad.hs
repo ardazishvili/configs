@@ -14,13 +14,15 @@ main = xmonad =<< statusBar myBar myPP toggleStrutsKey myConfig
 myBar = "xmobar"
 myPP = xmobarPP { ppCurrent = xmobarColor "#429942" "" . wrap "<" ">" }
 toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask, xK_b)
+modm = mod4Mask
 myKeys =
   [
-    ((0, xF86XK_AudioLowerVolume   ), spawn "amixer set Master 2-")
-    , ((0, xF86XK_AudioRaiseVolume   ), spawn "amixer set Master 2+")
-    , ((0, xF86XK_AudioMute          ), spawn "amixer set Master toggle")
-    , ((0, xF86XK_MonBrightnessUp    ), spawn "xbacklight + 5")
-    , ((0, xF86XK_MonBrightnessDown  ), spawn "xbacklight - 5")
+    ((mod1Mask,                xK_p ), spawn "rofi -show run")
+    ,((0, xF86XK_AudioLowerVolume  ), spawn "amixer set Master 2-")
+    ,((0, xF86XK_AudioRaiseVolume  ), spawn "amixer set Master 2+")
+    ,((0, xF86XK_AudioMute         ), spawn "amixer set Master toggle")
+    ,((0, xF86XK_MonBrightnessUp   ), spawn "xbacklight + 5")
+    ,((0, xF86XK_MonBrightnessDown ), spawn "xbacklight - 5")
   ]
 
 mySDConfig = def { 
@@ -34,7 +36,7 @@ myStartupHook :: X ()
 myStartupHook = spawn "compton --config ~/.xmonad/compton.conf"
 
 myConfig = def {
-      terminal = "konsole"
+      terminal = "alacritty"
       , layoutHook = baseLayout
       , manageHook = manageDocks
       , startupHook = spawn "compton --config ~/.xmonad/compton.conf" <+> spawn "setxkbmap -layout us,ru -option 'grp:lctrl_lshift_toggle'" 
