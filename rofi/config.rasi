@@ -1,0 +1,4 @@
+configuration {
+ modi: "ssh";
+}
+@theme "~/.config/rofi/breeze-dark.rasi"
