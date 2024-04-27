@@ -105,11 +105,17 @@ packadd! vimspector
 set viminfo^=!
 highlight MarkWord1 ctermbg=Magenta ctermfg=Black guibg=#FF00FF guifg=Black
 
+" Use ctrl-[hjkl] to select the active split!
+nmap <silent> <c-k> :wincmd k<CR>
+nmap <silent> <c-j> :wincmd j<CR>
+nmap <silent> <c-h> :wincmd h<CR>
+nmap <silent> <c-l> :wincmd l<CR>
+
 nnoremap tt :vertical terminal<cr>
-" nnoremap ,. :! cd cbuild && make && ./editor<cr>
+nnoremap ,. :! cd cbuild && make && ./colony<cr>
 " nnoremap ,. :! g++ test.cpp -g -o test && ./test <cr>
 " nnoremap ,. :! cargo run <cr>
-nnoremap ,. :! python3 % <cr>
+" nnoremap ,. :! python3 % <cr>
 nnoremap <Leader>, :wa<CR>
 inoremap " ""<left>
 inoremap ' ''<left>
@@ -119,3 +125,7 @@ inoremap { {}<left>
 inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
 nnoremap ;; A;<ESC>
+
+" source a.vim plugin
+source ~/.vim/autoload/a.vim
+nnoremap <Leader>a :A<CR>
