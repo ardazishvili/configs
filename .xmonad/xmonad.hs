@@ -19,11 +19,11 @@ main = do
   -- Request access to the DBus name
   D.requestName dbus (D.busName_ "org.xmonad.Log") [D.nameAllowReplacement, D.nameReplaceExisting, D.nameDoNotQueue]
   xmonad $ def {
-      terminal = "alacritty"
+      terminal = "konsole"
       , layoutHook = baseLayout
       , manageHook = manageDocks
       , logHook = dynamicLogWithPP (myLogHook dbus)
-      , startupHook = spawn "compton --config ~/.xmonad/compton.conf" <+> spawn "setxkbmap -layout us,ru -option 'grp:lctrl_lshift_toggle'"
+      , startupHook = spawn "compton --config ~/.xmonad/compton.conf" <+> spawn "setxkbmap -layout us,ru -option 'grp:lctrl_lshift_toggle'" <+> spawn "polybar -q bottom -c /home/roman/.config/polybar/config.ini"
     } `additionalKeys` myKeys
 
 myBar = "xmobar"
@@ -49,6 +49,7 @@ mySDConfig = def {
 
 myStartupHook :: X ()
 myStartupHook = do
+    spawn "compton --config ~/.xmonad/compton.conf"
     spawn "compton --config ~/.xmonad/compton.conf"
 
 myLogHook :: D.Client -> PP
@@ -77,8 +78,8 @@ dbusOutput dbus str = do
 
 baseLayout = noBorders $ avoidStruts $ full ||| tiled 
   where
-    tiled =  spacingRaw False (Border 0 35 10 0) True (Border 0 10 10 0) True $ Tall 1 (3/100) (1/2) 
-    full =  spacingRaw False (Border 0 45 10 0) True (Border 0 0 0 0) True $ Full
+    tiled =  spacingRaw False (Border 0 13 2 2) True (Border 0 13 2 2) True $ Tall 1 (3/100) (1/2) 
+    full =  spacingRaw False (Border 0 13 0 0) True (Border 0 13 0 0) True $ Full
 
 fg        = "#ebdbb2"
 bg        = "#282828"
